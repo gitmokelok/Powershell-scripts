@@ -1,0 +1,7 @@
+# Get users
+$users = Get-ChildItem -Path "C:\Users" |?{$_.name -notlike '*Public*' -and $_.name -notlike '*Default*' -and $_.name -notlike '*administrator*' -and $_.name -notlike '*temp*' }
+
+# Loop through users and delete the files
+$users | ForEach-Object {
+    Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\Outlook Logging\*" -Recurse -Include *.etl
+}
